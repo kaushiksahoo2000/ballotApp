@@ -7,7 +7,7 @@
  * # BallotCreationCtrl
  * Controller of the ballotTempApp
  */
-angular.module('ballotTempApp')
+angular.module('angularBestPracticeApp')
   .controller('BallotInitiationCtrl',function($scope){
     $scope.ballotInitiationInfo = [];
     $scope.saveData = function(){

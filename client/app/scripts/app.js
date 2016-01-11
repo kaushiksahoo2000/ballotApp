@@ -2,23 +2,39 @@
 
 /**
  * @ngdoc overview
- * @name ballotTempApp
+ * @name angularBestPracticeApp
  * @description
- * # ballotTempApp
+ * # angularBestPracticeApp
  *
  * Main module of the application.
  */
 angular
-  .module('ballotTempApp', [
+  .module('angularBestPracticeApp', [
     'ngAnimate',
+    'ngAria',
     'ngCookies',
+    'ngMessages',
     'ngResource',
     'ngRoute',
     'ngSanitize',
     'ngTouch'
   ])
   .config(function ($routeProvider) {
-    $routeProvider
+    // $routeProvider
+    //   .when('/', {
+    //     templateUrl: 'views/main.html',
+    //     controller: 'MainCtrl',
+    //     controllerAs: 'main'
+    //   })
+    //   .when('/about', {
+    //     templateUrl: 'views/about.html',
+    //     controller: 'AboutCtrl',
+    //     controllerAs: 'about'
+    //   })
+    //   .otherwise({
+    //     redirectTo: '/'
+    //   });
+  $routeProvider
       .when('/', {
         templateUrl: 'views/ballotinitiation.html',
         controller: 'BallotInitiationCtrl',

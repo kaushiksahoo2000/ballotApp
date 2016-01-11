@@ -7,7 +7,7 @@
  * # AboutCtrl
  * Controller of the ballotTempApp
  */
-angular.module('ballotTempApp')
+angular.module('angularBestPracticeApp')
   .controller('VotersSetupCtrl', function ($scope) {
     $scope.votersSetupInfo = [];
     $scope.saveData = function(){

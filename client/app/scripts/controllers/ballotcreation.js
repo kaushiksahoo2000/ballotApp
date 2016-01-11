@@ -7,7 +7,7 @@
  * # BallotCreationCtrl
  * Controller of the ballotTempApp
  */
-angular.module('ballotTempApp')
+angular.module('angularBestPracticeApp')
   .controller('BallotCreationCtrl', function ($scope) {
     $scope.choices = [{choice:'choice1'},{choice:'choice2'},{choice:'choice3'}];
     $scope.addNewChoice = function(){

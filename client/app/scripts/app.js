@@ -50,6 +50,14 @@ angular
         controller: 'VotersSetupCtrl',
         controllerAs: 'voterssetup'
       })
+      .when('/uservotingpage', {
+        templateUrl: 'views/uservotingpage.html',
+        controller: 'UserVotingPageCtrl'
+      })
+      .when('/votingresultspage', {
+        templateUrl: 'views/votingresultspage.html',
+        controller: 'VotingResultsPageCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

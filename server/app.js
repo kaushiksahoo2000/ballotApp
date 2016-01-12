@@ -10,7 +10,18 @@ let app = express();
 
 
 //create database connection
+let knex = require('knex')({
+  client: 'mysql',
+  connection: {
+    host      : 'mysqlcluster7.registeredsite.com',
+    user      : 'ballot_admin',
+    password  : '!Qaz2wsx3edc',
+    database  : 'greenfield_ballot',
+    charset   : 'utf8'
+  }
+});
 
+let Bookshelf = require('bookshelf')(knex);
 
 //serve static assets
 app.use(express.static(__dirname + '/..' + '/client'))

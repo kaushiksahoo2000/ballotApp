@@ -8,7 +8,7 @@
  * Controller of the ballotTempApp
  */
 angular.module('angularBestPracticeApp')
-  .controller('UserVotingPageCtrl',function($scope){
+  .controller('UserVotingPageCtrl',function($scope, $http){
     $scope.voters = [
       {
         voterId: 1,
@@ -45,6 +45,10 @@ angular.module('angularBestPracticeApp')
 
     $scope.endVoting = function(){
       console.log("inside endVoting function");
+      return $http.get("/api/ballots")
+      .success(function(data){
+        console.log(data);
+      })
     };
   });
 

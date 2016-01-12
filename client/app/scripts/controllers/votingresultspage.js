@@ -10,7 +10,7 @@
 angular.module('angularBestPracticeApp')
   .controller('VotingResultsPageCtrl',function($scope){
     $scope.votingResultsInfo = [];
-    $scope.saveData = function(){
-      console.log($scope.votingResultsInfo);
+    $scope.saveResults = function(){
+      console.log("inside saveResults function");
     };
   });

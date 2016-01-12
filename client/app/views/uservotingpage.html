@@ -3,20 +3,49 @@
   <li role="presentation" class="active">Where are we having lunch?</li>
 </ul>
 <h2>Voters</h2>
-<ul class="nav nav-pills nav-stacked">
-  <li role="presentation" class="active"><a href="#">Voter 1</a></li>
-  <li role="presentation"><a href="#">Voter 2</a></li>
-  <li role="presentation"><a href="#">Voter 3</a></li>
-</ul>
+<div ng-controller="UserVotingPageCtrl">
+    <ul>
+        <li ng-repeat="voter in voters"  ng-click="select($index)" ng-class="{active: $index===selectedIndex}">
+            {{voter.voter}}
+        </li>
+    </ul>
+</div>
 <h2>Choices</h2>
+<div ng-controller="UserVotingPageCtrl">
+    <ul>
+        <li ng-repeat="choice in choices"  ng-click="select($index)" ng-class="{active: $index===selectedIndex}">
+            {{choice.choice}}
+        </li>
+    </ul>
+</div>
+
+<div class="form-group">
+  <div class="col-sm-offset-2 col-sm-10">
+    <a href="#/votingresultspage"><button type="submit" ng-click="endVoting()" class="btn btn-success">End Voting</button></a>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <ul class="nav nav-pills nav-stacked">
+  <li role="presentation" class="active"><a>Voter 1</a></li>
+  <li role="presentation"><a>Voter 2</a></li>
+  <li role="presentation"><a>Voter 3</a></li>
+</ul>
+
+
 <ul class="nav nav-pills nav-stacked">
   <li role="presentation" class="active"><a href="#">Chipotle</a></li>
   <li role="presentation"><a href="#">Chophouse</a></li>
   <li role="presentation"><a href="#">Bennies</a></li>
-</ul>
-
-<div class="form-group">
-  <div class="col-sm-offset-2 col-sm-10">
-    <a href="#/votingresultspage"><button type="submit" ng-click="saveData()" class="btn btn-success">End Voting</button></a>
-  </div>
-</div>
+</ul> -->

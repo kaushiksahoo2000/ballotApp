@@ -9,8 +9,59 @@
  */
 angular.module('angularBestPracticeApp')
   .controller('UserVotingPageCtrl',function($scope){
-    $scope.userVotingInfo = [];
-    $scope.saveData = function(){
-      console.log($scope.userVotingInfo);
+    $scope.voters = [
+      {
+        voterId: 1,
+        voter: 'John',
+      },
+      {
+        voterId: 2,
+        voter: 'Andy',
+      },
+      {
+        voterId: 3,
+        voter: 'Jeff',
+      }
+    ];
+    $scope.choices = [
+      {
+        filterId: 1,
+        choice: 'Chipotle',
+      },
+      {
+        filterId: 2,
+        choice: 'Bennies',
+      },
+      {
+        filterId: 3,
+        choice: 'Chophouse',
+      }
+    ];
+    $scope.selectedIndex = 0;
+
+    $scope.select = function(i){
+      $scope.selectedIndex = i;
+    };
+
+    $scope.endVoting = function(){
+      console.log("inside endVoting function");
     };
   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // $scope.userVotingInfo = [];
+  // $scope.saveData = function(){
+  //   console.log($scope.userVotingInfo);
+  // };

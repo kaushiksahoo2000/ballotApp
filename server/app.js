@@ -128,7 +128,6 @@ router.route('/ballots')
   })
 })
 .delete(function (req, res) {
-  // console.log(req.body.id, " <----this is id");
   Ballot.forge({id:req.body.id})
   .fetch({require: true})
   .then(function (ballot) {
@@ -145,6 +144,27 @@ router.route('/ballots')
   });
 });
 
+
+router.route('/ballots/:ballotCode')
+//     GET           // Ballots/id          //fetch ballot info based on id
+.get(function (req, res) {
+  console.log('inside get req.params.ballotCode', req.params.ballotCode, "req.params ", req.params);
+  Ballot.forge({ballot_code: req.params.ballotCode})
+  .fetch()
+  .then(function (ballot) {
+    console.log('inside get then ballot', ballot);
+    if(!ballot) {
+
+      res.status(404).json({error: true, data: {}});
+    }
+    else {
+      res.json({error: false, data: ballot.toJSON()});
+    }
+  })
+  .catch(function (err) {
+    res.status(500).json({error: true, data: {message: err.message + ' shit is broken ' + err}});
+  });
+});
 
 //serve static assets
 app.use(express.static(__dirname + '/..' + '/client'));

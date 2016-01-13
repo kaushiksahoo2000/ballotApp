@@ -44,6 +44,30 @@ let Ballot = Bookshelf.Model.extend({
 
 });
 
+//user profile model
+let UserProfile = Bookshelf.Model.extend({
+  tableName: 'user_profile',
+
+  userVote: function () {
+    return this.hasMany(UserVote, 'user_id')
+  }
+
+});
+
+//user vote model
+let UserVote = Bookshelf.Model.extend({
+  tableName: 'user_vote',
+
+  userProfile: function () {
+    return this.belongsTo(UserProfile);
+  },
+
+  ballotOption: function () {
+    return this.belongsTo(BallotOption, 'ballot_option_id');
+  }
+
+});
+
 //////////////////////
 //   Collections    //
 //////////////////////
@@ -51,6 +75,16 @@ let Ballot = Bookshelf.Model.extend({
 let Ballots = Bookshelf.Collection.extend({
   model: Ballot
 
+});
+
+//UserProfiles collection
+let UserProfiles = Bookshelf.Collection.extend({
+  model: UserProfile
+});
+
+//UserVotes collection
+let UserVotes = Bookshelf.Collection.extend({
+  model: UserVote
 });
 
 //////////////////////

@@ -50,6 +50,7 @@ let Ballot = Bookshelf.Model.extend({
 //Ballots collection
 let Ballots = Bookshelf.Collection.extend({
   model: Ballot
+
 });
 
 //////////////////////
@@ -81,7 +82,7 @@ router.route('/ballots')
   });
 })
 .post(function (req, res) {
-  console.log('request => ', req);
+  // console.log('request => ', req);
   console.log('request.body => ', req.body);
   Ballot.forge({
     ballot_name: req.body.ballotName,
@@ -99,6 +100,48 @@ router.route('/ballots')
   })
   .catch(function (err) {
     res.status(500).json({error: true, data: {message: err.message}});
+  });
+})
+.put(function (req, res) {
+  Ballot.forge({id:req.body.id})
+  .fetch({require: true})
+  .then(function (ballot) {
+    ballot.save({
+      ballot_name: req.body.ballotName || ballot.get('ballotName'),
+      user_id: req.body.userId || ballot.get('userId'),
+      ballot_option_one: req.body.ballotOptionOne || ballot.get('ballotOptionOne'),
+      ballot_option_two: req.body.ballotOptionTwo || ballot.get('ballotOptionTwo'),
+      ballot_option_three: req.body.ballotOptionThree || ballot.get('ballotOptionThree'),
+      ballot_option_four: req.body.ballotOptionFour || ballot.get('ballotOptionFour'),
+      ballot_option_five: req.body.ballotOptionFive || ballot.get('ballotOptionFive'),
+      ballot_code: req.body.ballotCode || ballot.get('ballotCode')
+    })
+    .then(function () {
+      res.json({error: false, data: {message: 'ballot details updated'}});
+    })
+    .catch(function() {
+      res.status(500).json({error: true, data: {message: err.message}});
+    });
+  })
+  .catch(function (err) {
+    res.status(500).json({error: true, data: {message: err.message}});
+  })
+})
+.delete(function (req, res) {
+  // console.log(req.body.id, " <----this is id");
+  Ballot.forge({id:req.body.id})
+  .fetch({require: true})
+  .then(function (ballot) {
+    ballot.destroy()
+    .then(function() {
+      res.json({error: true, data: {message: 'Successfully deleted'}});
+    })
+    .catch(function (err) {
+      res.status(500).json({error: true, data: {message: err.message + 'inside then '}});
+    });
+  })
+  .catch(function (err) {
+    res.status(500).json({error: true, data: {message: err.message + ' outside then '}});
   });
 });
 

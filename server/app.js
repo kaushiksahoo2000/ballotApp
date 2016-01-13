@@ -86,6 +86,11 @@ router.route('/ballots')
   Ballot.forge({
     ballot_name: req.body.ballotName,
     user_id: req.body.userId,
+    ballot_option_one: req.body.ballotOptionOne,
+    ballot_option_two: req.body.ballotOptionTwo,
+    ballot_option_three: req.body.ballotOptionThree,
+    ballot_option_four: req.body.ballotOptionFour,
+    ballot_option_five: req.body.ballotOptionFive,
     ballot_code: req.body.ballotCode
   })
   .save()

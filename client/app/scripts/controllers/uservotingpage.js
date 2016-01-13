@@ -9,13 +9,10 @@
  */
 angular.module('angularBestPracticeApp')
   .controller('UserVotingPageCtrl',function($scope, $http, $rootScope){
-
-    $http.get("/api/ballots")
+    console.log("This is the user given code", $scope.userGivenCode);
+    $http.get("/api/ballots/" + $scope.userGivenCode)
     .success(function(data){
-      $scope.ballotData = data;
-      console.log("this is $scope.ballotData", $scope.ballotData);
-      console.log("this is $scope.ballotData.")
-
+      console.log("this is $scope.ballotData", data);
     });
 
     $scope.voters = [

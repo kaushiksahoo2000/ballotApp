@@ -23,8 +23,11 @@ angular.module('angularBestPracticeApp')
             "ballotName": $scope.choices.topic,
             "userId": "4",
             "ballotCode": $scope.choices.code,
-            "ballotOptionOne": "fklsdf",
-            "ballotOptionTwo": "asd;klfjasdf"
+            "ballotOptionOne": $scope.choices[0].name,
+            "ballotOptionTwo": $scope.choices[1].name,
+            "ballotOptionThree": $scope.choices[2].name,
+            "ballotOptionFour": $scope.choices[3].name,
+            "ballotOptionFive": $scope.choices[4].name
           }
         }).then(function(success){
           console.log(success);

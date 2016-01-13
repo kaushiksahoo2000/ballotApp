@@ -12,7 +12,13 @@ angular.module('angularBestPracticeApp')
     console.log("This is the user given code", $scope.userGivenCode);
     $http.get("/api/ballots/" + $scope.userGivenCode)
     .success(function(data){
-      console.log("this is $scope.ballotData", data);
+      $scope.ballotData = data;
+      console.log("this is $scope.ballotData", $scope.ballotData);
+      $scope.choices[0].choice = $scope.ballotData.data.ballot_option_one;
+      $scope.choices[1].choice = $scope.ballotData.data.ballot_option_two;
+      $scope.choices[2].choice = $scope.ballotData.data.ballot_option_three;
+      $scope.choices[3].choice = $scope.ballotData.data.ballot_option_four;
+      $scope.choices[4].choice = $scope.ballotData.data.ballot_option_five;
     });
 
     $scope.voters = [
@@ -33,15 +39,18 @@ angular.module('angularBestPracticeApp')
     $scope.choices = [
       {
         filterId: 1,
-        choice: 'Chipotle',
       },
       {
         filterId: 2,
-        choice: 'Bennies',
       },
       {
         filterId: 3,
-        choice: 'Chophouse',
+      },
+      {
+        filterId: 4,
+      },
+      {
+        filterId: 5,
       }
     ];
     $scope.selectedIndex = 0;

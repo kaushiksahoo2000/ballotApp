@@ -10,13 +10,12 @@
 angular.module('angularBestPracticeApp')
   .controller('BallotInitiationCtrl',function($scope, $rootScope){
     $rootScope.randomCode = (new Date()).getTime().toString().slice(8);
-    $scope.ballotInitiationInfo = [];
-    $scope.saveData = function(){
-      console.log($scope.ballotInitiationInfo);
+    $scope.enterBallotCode = function(){
+      $rootScope.userGivenCode = $scope.userGivenCode;
+      console.log("this is $rootScope.userGivenCode", $rootScope.userGivenCode);
     };
 
     $scope.ballotCreation = function(){
-      console.log($scope.ballotInitiationInfo);
       console.log($rootScope.randomCode);
     }
   });

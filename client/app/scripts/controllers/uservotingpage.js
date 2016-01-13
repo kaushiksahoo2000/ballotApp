@@ -8,7 +8,16 @@
  * Controller of the ballotTempApp
  */
 angular.module('angularBestPracticeApp')
-  .controller('UserVotingPageCtrl',function($scope, $http){
+  .controller('UserVotingPageCtrl',function($scope, $http, $rootScope){
+
+    $http.get("/api/ballots")
+    .success(function(data){
+      $scope.ballotData = data;
+      console.log("this is $scope.ballotData", $scope.ballotData);
+      console.log("this is $scope.ballotData.")
+
+    });
+
     $scope.voters = [
       {
         voterId: 1,
@@ -23,6 +32,7 @@ angular.module('angularBestPracticeApp')
         voter: 'Jeff',
       }
     ];
+
     $scope.choices = [
       {
         filterId: 1,
@@ -45,10 +55,6 @@ angular.module('angularBestPracticeApp')
 
     $scope.endVoting = function(){
       console.log("inside endVoting function");
-      return $http.get("/api/ballots")
-      .success(function(data){
-        console.log(data);
-      })
     };
   });
 

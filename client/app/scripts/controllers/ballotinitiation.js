@@ -13,4 +13,8 @@ angular.module('angularBestPracticeApp')
     $scope.saveData = function(){
       console.log($scope.ballotInitiationInfo);
     };
+
+    $scope.ballotCreation = function(){
+      console.log($scope.ballotInitiationInfo);
+    }
   });

@@ -4,7 +4,7 @@
   <h2>Code</h2>
   <div class="form-group">
     <div class="col-sm-4">
-      <input type="text" ng-model="choices.code" name="" placeholder="Enter code">
+      <input type="text" ng-model="choices.code" ng-value="randomCode" name="" placeholder="Enter code" readonly>
     </div>
   </div>
   <h2>Voting Topic</h2>
@@ -15,7 +15,7 @@
   </div>
   <h2>Enter Choices</h2>
   <!-- trying to dynamically add more form inputs  -->
-  <div class="form-group" ng-repeat="choice in choices">
+  <div class="form-group" ng-repeat="choice in choices.choices">
     <!-- <label for="choice" ng-show="$first">Choices</label> -->
     <button ng-show="$last" ng-click="addNewChoice()" class="btn btn-class">Add another choice</button>
     <input type="text" ng-model="choice.name" name="" placeholder="Enter choice">

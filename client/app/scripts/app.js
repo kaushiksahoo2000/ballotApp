@@ -31,10 +31,9 @@ angular
         controller: 'BallotCreationCtrl',
         controllerAs: 'ballotcreation'
       })
-      .when('/voterssetup', {
-        templateUrl: 'views/voterssetup.html',
-        controller: 'VotersSetupCtrl',
-        controllerAs: 'voterssetup'
+      .when('/adminvotingpage', {
+        templateUrl: 'views/adminvotingpage.html',
+        controller: 'AdminVotingPageCtrl'
       })
       .when('/uservotingpage', {
         templateUrl: 'views/uservotingpage.html',

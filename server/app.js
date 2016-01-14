@@ -64,8 +64,20 @@ let UserVote = Bookshelf.Model.extend({
 
   ballotOption: function () {
     return this.belongsTo(BallotOption, 'ballot_option_id');
-  }
+  },
 
+  count: function(cb, ballotId) {
+    Bookshelf.knex('user_vote')
+    .count('user_id')
+    .where({ballot_id: ballotId})
+    .then(function () {
+      console.log('inside count function of UserVote')
+      cb(null, count)
+    })
+    .catch(function(err){
+      cb(err);
+    });
+  }
 });
 
 //////////////////////
@@ -116,6 +128,7 @@ router.route('/ballots')
   });
 })
 .post(function (req, res) {
+  //     *POST      /ballots                              //create a new ballots
   // console.log('request => ', req);
   console.log('request.body => ', req.body);
   Ballot.forge({
@@ -180,23 +193,32 @@ router.route('/ballots')
 
 
 router.route('/ballots/:ballotCode')
-//     GET           // Ballots/id          //fetch ballot info based on id
+//     GET           // Ballots/ballotCode          //fetch ballot info based on ballotCode
 .get(function (req, res) {
   console.log('inside get req.params.ballotCode', req.params.ballotCode, "req.params ", req.params);
   Ballot.forge({ballot_code: req.params.ballotCode})
   .fetch()
   .then(function (ballot) {
-    console.log('inside get then ballot', ballot);
+    //console.log('inside get then ballot', ballot);
     if(!ballot) {
 
       res.status(404).json({error: true, data: {}});
     }
     else {
+      let ballotInfo = ballot.toJSON();
+      console.log("+++ line 209 server.js ballotInfo.id => ", ballotInfo.id);
+      //count number of UserVote
+      new UserVote().count(function(err, result) {
+        console.log("+++ line 212 server.js number of voters => ", result);
+        console.log("+++ line 213 server.js err \n \n", err);
+      }, ballotInfo);
+      //access user Model
+      //insert user with username field or generated username Voter76481
       res.json({error: false, data: ballot.toJSON()});
     }
   })
   .catch(function (err) {
-    res.status(500).json({error: true, data: {message: err.message + ' shit is broken ' + err}});
+    res.status(500).json({error: true, data: {message: err.message}});
   });
 });
 

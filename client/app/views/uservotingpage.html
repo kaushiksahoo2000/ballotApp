@@ -19,9 +19,11 @@
 <h2>Choices</h2>
 <div ng-controller="UserVotingPageCtrl">
     <ul>
-        <li ng-repeat="choice in choices"  ng-click="select($index)" ng-class="{active: $index===selectedIndex}">
+        <li ng-repeat="choice in choices">
+          <button id="{{choice.choice}}" ng-click="select(choice.id)" ng-class="{active: $index===selectedIndex}">
             {{choice.choice}}
-        </li>
+        </button>
+      </li>
     </ul>
 </div>
 

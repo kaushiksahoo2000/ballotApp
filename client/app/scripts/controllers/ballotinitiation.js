@@ -9,7 +9,6 @@
  */
 angular.module('angularBestPracticeApp')
   .controller('BallotInitiationCtrl', ['$scope', '$rootScope', 'UserFactory', function($scope, $rootScope, UserFactory){
-    console.log("THIS IS ROOT SCOPE NEW INITIATOR", $scope.cheese);
     $rootScope.randomCode = (new Date()).getTime().toString().slice(8);
     $scope.enterBallotCode = function(){
       $rootScope.userGivenCode = $scope.userGivenCode;

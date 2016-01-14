@@ -8,8 +8,7 @@
  */
 angular.module('angularBestPracticeApp')
   .controller('BallotCreationCtrl', ['$scope', '$http', '$rootScope', 'UserFactory', function ($scope, $http, $rootScope, UserFactory) {
-    $scope.initiator = UserFactory.getUser();
-    console.log("THIS IS ROOT SCOPE NEW INITIATOR within ballotcreation.js", UserFactory.getUser());
+    $scope.initiator = UserFactory.getUser() ? UserFactory.getUser() : 'Initiator'+$rootScope.randomCode;
     $scope.choices = {
       choices: [{choice:'choice1'},{choice:'choice2'},{choice:'choice3'}],
       topic: '',

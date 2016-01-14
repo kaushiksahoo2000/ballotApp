@@ -74,7 +74,7 @@ let UserVote = Bookshelf.Model.extend({
     .then(function (userVotes) {
       //let userVotes = 2;
       console.log('++++ line 76 inside countVotes function of UserVote');
-      console.log('+++ line 77', userVotes)
+      console.log('+++ line 77', userVotes);
       cb(null, userVotes);
     })
     .catch(function(err){
@@ -135,22 +135,41 @@ router.route('/ballots')
   // console.log('request => ', req);
   console.log('request.body => ', req.body);
   //create user
-  //create ballot
-  //create vote skeleton
-  Ballot.forge({
-    ballot_name: req.body.ballotName,
-    user_id: req.body.userId,
-    ballot_option_one: req.body.ballotOptionOne,
-    ballot_option_two: req.body.ballotOptionTwo,
-    ballot_option_three: req.body.ballotOptionThree,
-    ballot_option_four: req.body.ballotOptionFour,
-    ballot_option_five: req.body.ballotOptionFive,
-    ballot_code: req.body.ballotCode
-  })
+  var user_id, ballot_id;
+  UserProfile.forge({name: req.body.name}) //get newly created id from user_profile table
   .save()
-  .then(function (ballot) {
-    res.json({error: false, data: {id: ballot.get('id')}});
+  .then(function(user_profile) {
+    console.log('user_id:before:', user_id);
+    user_id = user_profile.get('id');
+    console.log('user_id', user_id);
   })
+  .then(function(){
+    Ballot.forge({ //create ballot
+      ballot_name: req.body.ballotName,
+      user_id: user_id,
+      ballot_option_one: req.body.ballotOptionOne,
+      ballot_option_two: req.body.ballotOptionTwo,
+      ballot_option_three: req.body.ballotOptionThree,
+      ballot_option_four: req.body.ballotOptionFour,
+      ballot_option_five: req.body.ballotOptionFive,
+      ballot_code: req.body.ballotCode
+    })
+    .save()
+    .then(function (ballot) {
+      ballot_id =  ballot.get('id');
+      //res.json({error: false, data: {id: ballot.get('id')}});
+    })
+    .then(function(){
+      UserVote.forge({
+        user_id: user_id,
+        ballot_id: ballot_id
+      })
+      .save()
+      .then(function (user_vote) {
+        res.json({error: false, data: {id: user_vote.get('id')}});
+      })
+    })
+  })// FIXME create vote skeleton
   .catch(function (err) {
     res.status(500).json({error: true, data: {message: err.message}});
   });
@@ -224,6 +243,56 @@ router.route('/ballots/:ballotCode')
     }
   })
   .catch(function (err) {
+    res.status(500).json({error: true, data: {message: err.message}});
+  });
+})
+.post(function(req, res) {
+  var user_id, ballot_id, userVoteCount, username;
+  //fetch ballot info by code
+  Ballot.forge({ballot_code: req.params.ballotCode})
+  .fetch()
+  .then(function(ballot) {
+    if(!ballot) {
+      res.status(404).json({error: true, data: {}});
+    }
+    else {
+      let ballotInfo = ballot.toJSON();
+      //get ballot_id
+      ballot_id = ballotInfo.id;
+
+    }
+  })
+  .then(function() {
+    //insert user_profile with as Voter+ballot_code+(currentCountVotes + 1)
+    //get current vote count see .get function in this route
+    new UserVote().countVotes(function(err, result) {
+      console.log()
+      userVoteCount = result[0].userVotes;
+      console.log('userVoteCount', userVoteCount);
+      username = 'Voter' + req.params.ballotCode + (parseInt(userVoteCount) + 1);
+      if(!req.body.username) {
+      }
+      else {
+        username = req.body.username;
+      }
+      UserProfile.forge({ name: username})
+      .save()
+      .then(function(user_profile) {
+        user_id = user_profile.get('id');
+      })
+      .then(function() {
+        UserVote.forge({ //insert user_vote with ballot_id and user_id
+          user_id: user_id,
+          ballot_id: ballot_id
+        })
+        .save()
+        .then(function (user_vote) {
+          res.json({error: false, data: {id: user_vote.get('id')}});
+        })
+      })
+    }, ballot_id);
+  })
+  .catch(function(err) {
     res.status(500).json({error: true, data: {message: err.message}});
   });
 });

@@ -33,8 +33,8 @@ angular.module('angularBestPracticeApp')
           method  : 'POST',
           url     : '/api/ballots',
           data    : {
+            "name": $scope.intiator,
             "ballotName": $scope.choices.topic,
-            "userId": "4",
             "ballotCode": $scope.choices.code,
             "ballotOptionOne": $scope.choices.choices[0] ? $scope.choices.choices[0].name : 'NULL',
             "ballotOptionTwo": $scope.choices.choices[1] ? $scope.choices.choices[1].name : 'NULL',

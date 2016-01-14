@@ -56,6 +56,7 @@ angular.module('angularBestPracticeApp')
 
     $scope.select = function(i){
       $scope.selectedIndex = i;
+      console.log(this.choice.choice);
     };
 
     $scope.endVoting = function(){

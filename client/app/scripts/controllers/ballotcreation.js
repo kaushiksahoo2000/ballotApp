@@ -48,4 +48,18 @@ angular.module('angularBestPracticeApp')
           console.log('THIS IS AN ERROR!');
         });
     };
-  }]);
+  }])
+  .factory('CodeCreatorCache', function(){
+    var code;
+    var saveCode = function(codeToSave){
+      code = codeToSave;
+    };
+    var getCode = function(){
+      return code;
+    }
+
+    return {
+      saveCode: saveCode,
+      getCode: getCode
+    }
+  })

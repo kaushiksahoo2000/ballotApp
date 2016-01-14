@@ -2,17 +2,18 @@
 
 /**
  * @ngdoc function
- * @name ballotTempApp.controller:UserVotingPageCtrl
+ * @name ballotTempApp.controller:AdminVotingPageCtrl
  * @description
  * # BallotCreationCtrl
  * Controller of the ballotTempApp
  */
 angular.module('angularBestPracticeApp')
-  .controller('UserVotingPageCtrl',function($scope, $http, $rootScope){
-    $http.get("/api/ballots/" + $scope.userGivenCode)
+  .controller('AdminVotingPageCtrl',function($scope, $http, $rootScope){
+    console.log("This is the randomly generated code", $scope.randomCode);
+    $http.get("/api/ballots/" + $scope.randomCode)
     .success(function(data){
       $scope.ballotData = data;
-      console.log("this is $scope.ballotData", $scope.ballotData);
+      console.log("this is $scope.ballotData", $scope.randomCode);
       $scope.choices[0].choice = $scope.ballotData.data.ballot_option_one;
       $scope.choices[1].choice = $scope.ballotData.data.ballot_option_two;
       $scope.choices[2].choice = $scope.ballotData.data.ballot_option_three;
@@ -62,21 +63,3 @@ angular.module('angularBestPracticeApp')
       console.log("inside endVoting function");
     };
   });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // $scope.userVotingInfo = [];
-  // $scope.saveData = function(){
-  //   console.log($scope.userVotingInfo);
-  // };

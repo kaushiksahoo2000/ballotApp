@@ -66,13 +66,16 @@ let UserVote = Bookshelf.Model.extend({
     return this.belongsTo(BallotOption, 'ballot_option_id');
   },
 
-  count: function(cb, ballotId) {
+  countVotes: function(cb, ballotId) {
+    console.log('+++ line 70 iside countVotes ballotID =>')
     Bookshelf.knex('user_vote')
-    .count('user_id')
+    .count('user_id as userVotes')
     .where({ballot_id: ballotId})
-    .then(function () {
-      console.log('inside count function of UserVote')
-      cb(null, count)
+    .then(function (userVotes) {
+      //let userVotes = 2;
+      console.log('++++ line 76 inside countVotes function of UserVote');
+      console.log('+++ line 77', userVotes)
+      cb(null, userVotes);
     })
     .catch(function(err){
       cb(err);
@@ -131,6 +134,9 @@ router.route('/ballots')
   //     *POST      /ballots                              //create a new ballots
   // console.log('request => ', req);
   console.log('request.body => ', req.body);
+  //create user
+  //create ballot
+  //create vote skeleton
   Ballot.forge({
     ballot_name: req.body.ballotName,
     user_id: req.body.userId,
@@ -205,16 +211,16 @@ router.route('/ballots/:ballotCode')
       res.status(404).json({error: true, data: {}});
     }
     else {
+      //console.log('+++++ line 211 ballot', ballot);
       let ballotInfo = ballot.toJSON();
-      console.log("+++ line 209 server.js ballotInfo.id => ", ballotInfo.id);
+      //ballotInfo.userVoteCount=2;
+      console.log("+++ line 214 server.js ballotInfo.id => ", ballotInfo.id);
       //count number of UserVote
-      new UserVote().count(function(err, result) {
-        console.log("+++ line 212 server.js number of voters => ", result);
-        console.log("+++ line 213 server.js err \n \n", err);
-      }, ballotInfo);
-      //access user Model
-      //insert user with username field or generated username Voter76481
-      res.json({error: false, data: ballot.toJSON()});
+      new UserVote().countVotes(function(err, result) {
+        console.log("+++ line 217 server.js number of voters => ", result[0].userVotes);
+        ballotInfo.userVoteCount = result[0].userVotes;
+        res.json({error: false, data: ballotInfo});
+      }, ballotInfo.id);
     }
   })
   .catch(function (err) {

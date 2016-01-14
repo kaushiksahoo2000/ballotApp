@@ -16,9 +16,17 @@ angular.module('angularBestPracticeApp')
       initiator: $scope.initiator
     };
     $scope.addNewChoice = function(){
-      var newItemNo = $scope.choices.length+1;
-      $scope.choices.push({'choice':'choice'+newItemNo});
+      var newItemNo = $scope.choices.choices.length+1;
+      if($scope.choices.choices.length < 5){
+        $scope.choices.choices.push({'choice':'choice'+newItemNo});
+      }
     };
+    $scope.removeChoice = function(){
+      var lastItem = $scope.choices.choices.length-1;
+      if($scope.choices.choices.length>2){
+        $scope.choices.choices.splice(lastItem);
+      }
+    }
     $scope.generateBallot = function(){
       console.log("THIS IS $SCOPE.CHOICES",$scope.choices);
       $http({

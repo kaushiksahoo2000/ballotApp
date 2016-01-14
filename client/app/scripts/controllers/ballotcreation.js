@@ -7,11 +7,14 @@
  * Controller of the ballotTempApp
  */
 angular.module('angularBestPracticeApp')
-  .controller('BallotCreationCtrl', function ($scope, $http, $rootScope) {
+  .controller('BallotCreationCtrl', ['$scope', '$http', '$rootScope', 'UserFactory', function ($scope, $http, $rootScope, UserFactory) {
+    $scope.initiator = UserFactory.getUser();
+    console.log("THIS IS ROOT SCOPE NEW INITIATOR within ballotcreation.js", UserFactory.getUser());
     $scope.choices = {
       choices: [{choice:'choice1'},{choice:'choice2'},{choice:'choice3'}],
       topic: '',
-      code: $rootScope.randomCode
+      code: $rootScope.randomCode,
+      initiator: $scope.initiator
     };
     $scope.addNewChoice = function(){
       var newItemNo = $scope.choices.length+1;
@@ -38,4 +41,4 @@ angular.module('angularBestPracticeApp')
           console.log('THIS IS AN ERROR!');
         });
     };
-  });
+  }]);

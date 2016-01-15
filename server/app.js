@@ -301,6 +301,61 @@ router.route('/ballots/:ballotCode')
   });
 });
 
+router.route('/ballots/:ballotCode/:username')
+//     POST           // Ballots/ballotCode/username          //fetch ballot info based on ballotCode and insert user
+.post(function(req, res) {
+  var user_id, ballot_id, userVoteCount, username;
+  //fetch ballot info by code
+  Ballot.forge({ballot_code: req.params.ballotCode})
+  .fetch()
+  .then(function(ballot) {
+    if(!ballot) {
+      res.status(404).json({error: true, data: {}});
+    }
+    else {
+      let ballotInfo = ballot.toJSON();
+      //get ballot_id
+      ballot_id = ballotInfo.id;
+
+    }
+  })
+  .then(function() {
+    //insert user_profile with as Voter+ballot_code+(currentCountVotes + 1)
+    //get current vote count see .get function in this route
+    new UserVote().countVotes(function(err, result) {
+      console.log()
+      userVoteCount = result[0].userVotes;
+      console.log('userVoteCount', userVoteCount);
+      if(!req.body.username) {
+        username = 'Voter' + req.params.ballotCode + (parseInt(userVoteCount) + 1);
+      }
+      else {
+        username = req.params.username;
+      }
+      UserProfile.forge({ name: username})
+      .save()
+      .then(function(user_profile) {
+        user_id = user_profile.get('id');
+      })
+      .then(function() {
+        UserVote.forge({ //insert user_vote with ballot_id and user_id
+          user_id: user_id,
+          user_name: username,
+          ballot_id: ballot_id
+        })
+        .save()
+        .then(function (user_vote) {
+          res.json({error: false, data: {id: user_vote.get('id')}});
+        })
+      })
+    }, ballot_id);
+  })
+  .catch(function(err) {
+    res.status(500).json({error: true, data: {message: err.message}});
+  });
+});
+
+
 //serve static assets
 app.use(express.static(__dirname + '/..' + '/client'));
 app.use('/api', router);

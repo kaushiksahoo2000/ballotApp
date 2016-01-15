@@ -8,12 +8,24 @@
  * Controller of the ballotTempApp
  */
 angular.module('angularBestPracticeApp')
-  .controller('BallotInitiationCtrl', ['$scope', '$rootScope', 'UserFactory', function($scope, $rootScope, UserFactory){
+  .controller('BallotInitiationCtrl', ['$scope', '$rootScope', 'UserFactory', '$http', function($scope, $rootScope, UserFactory, $http){
     $rootScope.randomCode = (new Date()).getTime().toString().slice(8);
     $scope.enterBallotCode = function(){
       $rootScope.userGivenCode = $scope.userGivenCode;
       console.log("this is $rootScope.userGivenCode", $rootScope.userGivenCode);
       console.log("this is the userGivenUserName", $scope.userGivenUserName);
+      $http({
+          method  : 'POST',
+          url     : '/api/ballots/'+$scope.userGivenCode+'/'+$scope.userGivenUserName,
+          data    : {
+            "name": $scope.userGivenUserName,
+            "ballotCode": $scope.userGivenCode
+          }
+        }).then(function(success){
+          console.log(success);
+        }, function(err){
+          console.log('THIS IS AN ERROR!');
+        });
     };
 
     $scope.saveUser = function(user){

@@ -38,6 +38,12 @@ angular.module('angularBestPracticeApp')
         filterId: 5,
       }
     ];
+
+    // $scope.buttonColor = false;
+    // $scope.changeButtonColor = function(){
+    //   $scope.buttonColor = !$scope.buttonColor;
+    // };
+
     $scope.selectedIndex = 0;
 
     $scope.select = function(i){

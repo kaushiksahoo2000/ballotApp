@@ -288,8 +288,7 @@ router.route('/ballots/:ballotCode')
         UserVote.forge({ //insert user_vote with ballot_id and user_id
           user_id: user_id,
           user_name: username,
-          ballot_id: ballot_id,
-          ballot_option_name: ballot_option_name
+          ballot_id: ballot_id
         })
         .save()
         .then(function (user_vote) {
@@ -347,8 +346,7 @@ router.route('/ballots/:ballotCode/:username')
         UserVote.forge({ //insert user_vote with ballot_id and user_id
           user_id: user_id,
           user_name: username,
-          ballot_id: ballot_id,
-          ballot_option_name: ballot_option_name
+          ballot_id: ballot_id
         })
         .save()
         .then(function (user_vote) {

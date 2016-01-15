@@ -12,6 +12,7 @@ angular.module('angularBestPracticeApp')
     $http.get("/api/ballots/" + $scope.userGivenCode)
     .success(function(data){
       $scope.ballotData = data;
+      $scope.userTopic = $scope.ballotData.data.ballot_name;
       console.log("this is $scope.ballotData", $scope.ballotData);
       $scope.choices[0].choice = $scope.ballotData.data.ballot_option_one;
       $scope.choices[1].choice = $scope.ballotData.data.ballot_option_two;

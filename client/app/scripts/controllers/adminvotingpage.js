@@ -9,12 +9,12 @@
  */
 angular.module('angularBestPracticeApp')
   .controller('AdminVotingPageCtrl',function($scope, $http, $rootScope, $timeout){
-    console.log("This is the randomly generated code", $scope.randomCode);
     $timeout(function(){
       $http.get("/api/ballots/" + $scope.randomCode)
       .success(function(data){
         $scope.ballotData = data;
-        console.log("this is $scope.ballotData", $scope.randomCode);
+        $scope.votingTopic = $scope.ballotData.data.ballot_name;
+        console.log("this is $scope.votingTopic!!!", $scope.votingTopic);
         $scope.choices[0].choice = $scope.ballotData.data.ballot_option_one;
         $scope.choices[1].choice = $scope.ballotData.data.ballot_option_two;
         $scope.choices[2].choice = $scope.ballotData.data.ballot_option_three;
@@ -78,6 +78,7 @@ angular.module('angularBestPracticeApp')
 
     $scope.select = function(i){
       $scope.selectedIndex = i;
+      console.log(this.choice.choice);
     };
 
     $scope.endVoting = function(){

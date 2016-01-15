@@ -20,21 +20,6 @@ angular.module('angularBestPracticeApp')
       $scope.choices[4].choice = $scope.ballotData.data.ballot_option_five;
     });
 
-    $scope.voters = [
-      {
-        voterId: 1,
-        voter: 'John',
-      },
-      {
-        voterId: 2,
-        voter: 'Andy',
-      },
-      {
-        voterId: 3,
-        voter: 'Jeff',
-      }
-    ];
-
     $scope.choices = [
       {
         filterId: 1,

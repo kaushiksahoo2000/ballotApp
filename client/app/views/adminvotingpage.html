@@ -9,15 +9,15 @@
   <li role="presentation" class="active">Where are we having lunch?</li>
 </ul>
 <h2>Voters</h2>
-<div ng-controller="AdminVotingPageCtrl">
+<div>
     <ul>
-        <li ng-repeat="voter in voters"  ng-click="select($index)" ng-class="{active: $index===selectedIndex}">
-            {{voter.voter}}
+        <li ng-repeat="v in vs"  ng-click="select($index)" ng-class="{active: $index===selectedIndex}">
+            {{v.voter}}
         </li>
     </ul>
 </div>
 <h2>Choices</h2>
-<div ng-controller="AdminVotingPageCtrl">
+<div>
     <ul>
         <li ng-repeat="choice in choices"  ng-click="select($index)" ng-class="{active: $index===selectedIndex}">
             {{choice.choice}}
@@ -28,5 +28,11 @@
 <div class="form-group">
   <div class="col-sm-offset-2 col-sm-10">
     <a href="#/votingresultspage"><button type="submit" ng-click="endVoting()" class="btn btn-success">End Voting</button></a>
+  </div>
+</div>
+
+<div class="form-group">
+  <div class="col-sm-offset-2 col-sm-10">
+    <button type="submit" ng-click="populateVoters()" class="btn btn-success">Populate Voters</button>
   </div>
 </div>

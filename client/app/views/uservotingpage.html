@@ -1,0 +1,46 @@
+<h2>Code</h2>
+<div class="form-group">
+  <div class="col-sm-4">
+    <input type="text" ng-model="userGivenCode" name="" readonly>
+  </div>
+</div>
+<h2>Voting topic</h2>
+<ul class="nav nav-pills nav-stacked">
+  <li role="presentation" class="active">{{userTopic}}</li>
+</ul>
+<h2>Choices</h2>
+<div>
+    <ul>
+        <li ng-repeat="choice in choices">
+          <button id="{{choice.choice}}" ng-click="select(choice.id); myStyle={'background-color':'yellow'}" ng-style="myStyle">
+            {{choice.choice}}
+        </button>
+      </li>
+    </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <ul class="nav nav-pills nav-stacked">
+  <li role="presentation" class="active"><a>Voter 1</a></li>
+  <li role="presentation"><a>Voter 2</a></li>
+  <li role="presentation"><a>Voter 3</a></li>
+</ul>
+
+
+<ul class="nav nav-pills nav-stacked">
+  <li role="presentation" class="active"><a href="#">Chipotle</a></li>
+  <li role="presentation"><a href="#">Chophouse</a></li>
+  <li role="presentation"><a href="#">Bennies</a></li>
+</ul> -->

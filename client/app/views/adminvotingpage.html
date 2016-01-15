@@ -1,0 +1,39 @@
+<h2>Code</h2>
+<div class="form-group">
+  <div class="col-sm-4">
+    <input type="text" ng-model="randomCode" name="" readonly>
+  </div>
+</div>
+<h2>Voting topic</h2>
+<ul class="nav nav-pills nav-stacked">
+  <li role="presentation" class="active">{{votingTopic}}</li>
+</ul>
+<h2>Voters</h2>
+<div>
+    <ul>
+        <li ng-repeat="v in vs">
+            {{v.voter}}
+        </li>
+    </ul>
+</div>
+<h2>Choices</h2>
+<div>
+    <ul>
+        <li ng-repeat="choice in choices">
+          <button id="{{choice.choice}}" ng-click="select(choice.id)" ng-class="{active: $index===selectedIndex}">
+            {{choice.choice}}
+        </li>
+    </ul>
+</div>
+
+<div class="form-group">
+  <div class="col-sm-offset-2 col-sm-10">
+    <a href="#/votingresultspage"><button type="submit" ng-click="endVoting()" class="btn btn-success">End Voting</button></a>
+  </div>
+</div>
+
+<div class="form-group">
+  <div class="col-sm-offset-2 col-sm-10">
+    <button type="submit" ng-click="populateVoters()" class="btn btn-success">Populate Voters</button>
+  </div>
+</div>

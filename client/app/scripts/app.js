@@ -20,20 +20,6 @@ angular
     'ngTouch'
   ])
   .config(function ($routeProvider) {
-    // $routeProvider
-    //   .when('/', {
-    //     templateUrl: 'views/main.html',
-    //     controller: 'MainCtrl',
-    //     controllerAs: 'main'
-    //   })
-    //   .when('/about', {
-    //     templateUrl: 'views/about.html',
-    //     controller: 'AboutCtrl',
-    //     controllerAs: 'about'
-    //   })
-    //   .otherwise({
-    //     redirectTo: '/'
-    //   });
   $routeProvider
       .when('/', {
         templateUrl: 'views/ballotinitiation.html',
@@ -45,10 +31,17 @@ angular
         controller: 'BallotCreationCtrl',
         controllerAs: 'ballotcreation'
       })
-      .when('/voterssetup', {
-        templateUrl: 'views/voterssetup.html',
-        controller: 'VotersSetupCtrl',
-        controllerAs: 'voterssetup'
+      .when('/adminvotingpage', {
+        templateUrl: 'views/adminvotingpage.html',
+        controller: 'AdminVotingPageCtrl'
+      })
+      .when('/uservotingpage', {
+        templateUrl: 'views/uservotingpage.html',
+        controller: 'UserVotingPageCtrl'
+      })
+      .when('/votingresultspage', {
+        templateUrl: 'views/votingresultspage.html',
+        controller: 'VotingResultsPageCtrl'
       })
       .otherwise({
         redirectTo: '/'

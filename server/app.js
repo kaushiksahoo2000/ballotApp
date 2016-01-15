@@ -38,8 +38,8 @@ let Ballot = Bookshelf.Model.extend({
 
   hasTimestamps: true,
 
-  ballotOption: function () {
-    return this.hasMany(BallotOption, 'ballot_id');
+  user_vote: function () {
+    return this.hasMany(UserVote, 'ballot_id');
   }
 
 });
@@ -62,8 +62,8 @@ let UserVote = Bookshelf.Model.extend({
     return this.belongsTo(UserProfile);
   },
 
-  ballotOption: function () {
-    return this.belongsTo(BallotOption, 'ballot_option_id');
+  ballot: function () {
+    return this.belongsTo(Ballot, 'ballot_id');
   },
 
   countVotes: function(cb, ballotId) {
@@ -225,7 +225,7 @@ router.route('/ballots/:ballotCode')
 .get(function (req, res) {
   console.log('inside get req.params.ballotCode', req.params.ballotCode, "req.params ", req.params);
   Ballot.forge({ballot_code: req.params.ballotCode})
-  .fetch()
+  .fetch({withRelated: ['user_vote']})
   .then(function (ballot) {
     //console.log('inside get then ballot', ballot);
     if(!ballot) {

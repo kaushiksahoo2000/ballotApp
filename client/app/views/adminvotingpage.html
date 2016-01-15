@@ -6,7 +6,7 @@
 </div>
 <h2>Voting topic</h2>
 <ul class="nav nav-pills nav-stacked">
-  <li role="presentation" class="active">Where are we having lunch?</li>
+  <li role="presentation" class="active">{{votingTopic}}</li>
 </ul>
 <h2>Voters</h2>
 <div>
@@ -19,7 +19,8 @@
 <h2>Choices</h2>
 <div>
     <ul>
-        <li ng-repeat="choice in choices"  ng-click="select($index)" ng-class="{active: $index===selectedIndex}">
+        <li ng-repeat="choice in choices">
+          <button id="{{choice.choice}}" ng-click="select(choice.id)" ng-class="{active: $index===selectedIndex}">
             {{choice.choice}}
         </li>
     </ul>

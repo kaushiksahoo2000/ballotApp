@@ -300,7 +300,7 @@ router.route('/ballots/:ballotCode')
     res.status(500).json({error: true, data: {message: err.message}});
   });
 });
-
+//new voter by route
 router.route('/ballots/:ballotCode/:username')
 //     POST           // Ballots/ballotCode/username          //fetch ballot info based on ballotCode and insert user
 .post(function(req, res) {

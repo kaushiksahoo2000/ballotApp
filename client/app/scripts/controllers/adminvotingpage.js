@@ -14,7 +14,6 @@ angular.module('angularBestPracticeApp')
       .success(function(data){
         $scope.ballotData = data;
         $scope.votingTopic = $scope.ballotData.data.ballot_name;
-        console.log("this is $scope.votingTopic!!!", $scope.votingTopic);
         $scope.choices[0].choice = $scope.ballotData.data.ballot_option_one;
         $scope.choices[1].choice = $scope.ballotData.data.ballot_option_two;
         $scope.choices[2].choice = $scope.ballotData.data.ballot_option_three;
@@ -45,15 +44,19 @@ angular.module('angularBestPracticeApp')
       $http.get("/api/ballots/" + $scope.randomCode)
       .then(function(result){
         $scope.voterData = result.data;
-        console.log('bData1', $scope.voterData)
-        console.log('option1', $scope.voterData.data.ballot_option_one);
-        $scope.vs[0].voter = $scope.voterData.data.ballot_option_one;
-        console.log($scope.vs[0].voter);
-        $scope.vs[1].voter = $scope.voterData.data.ballot_option_two;
-        $scope.vs[2].voter = $scope.voterData.data.ballot_option_three;
-        $scope.vs[3].voter = $scope.voterData.data.ballot_option_four;
-        $scope.vs[4].voter = $scope.voterData.data.ballot_option_five;
-      })
+        console.log('uservote data user_name', $scope.voterData.data.user_vote[0].user_name);
+        $scope.ballotVoters = $scope.voterData.data.user_vote;
+        console.log("this is the voters array", $scope.ballotVoters);
+        angular.forEach($scope.ballotVoters,function(value,index){
+          console.log("this is the user_name value in forEach", value.user_name);
+          $scope.vs[index].voter = value.user_name;
+        });
+        // $scope.vs[0].voter = $scope.voterData.data.ballot_option_one;
+        // $scope.vs[1].voter = $scope.voterData.data.ballot_option_two;
+        // $scope.vs[2].voter = $scope.voterData.data.ballot_option_three;
+        // $scope.vs[3].voter = $scope.voterData.data.ballot_option_four;
+        // $scope.vs[4].voter = $scope.voterData.data.ballot_option_five;
+      });
     };
 
 

@@ -13,6 +13,7 @@ angular.module('angularBestPracticeApp')
     $scope.enterBallotCode = function(){
       $rootScope.userGivenCode = $scope.userGivenCode;
       console.log("this is $rootScope.userGivenCode", $rootScope.userGivenCode);
+      console.log("this is the userGivenUserName", $scope.userGivenUserName);
     };
 
     $scope.saveUser = function(user){

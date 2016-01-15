@@ -38,8 +38,8 @@ let Ballot = Bookshelf.Model.extend({
 
   hasTimestamps: true,
 
-  ballotOption: function () {
-    return this.hasMany(BallotOption, 'ballot_id');
+  user_vote: function () {
+    return this.hasMany(UserVote, 'ballot_id');
   }
 
 });
@@ -62,8 +62,8 @@ let UserVote = Bookshelf.Model.extend({
     return this.belongsTo(UserProfile);
   },
 
-  ballotOption: function () {
-    return this.belongsTo(BallotOption, 'ballot_option_id');
+  ballot: function () {
+    return this.belongsTo(Ballot, 'ballot_id');
   },
 
   countVotes: function(cb, ballotId) {
@@ -131,19 +131,20 @@ router.route('/ballots')
   });
 })
 .post(function (req, res) {
-  //     *POST      /ballots                              //create a new ballots
-  // console.log('request => ', req);
-  console.log('request.body => ', req.body);
+  //*POST      /ballots                              //create a new ballots
+  //console.log('request => ', req);
+  //console.log('request.body => ', req.body);
   //create user
   var user_id, ballot_id;
+  var user_name = req.body.name;
   UserProfile.forge({name: req.body.name}) //get newly created id from user_profile table
   .save()
   .then(function(user_profile) {
-    console.log('user_id:before:', user_id);
     user_id = user_profile.get('id');
     console.log('user_id', user_id);
   })
   .then(function(){
+    console.log('inserting Ballot with user_id', user_id);
     Ballot.forge({ //create ballot
       ballot_name: req.body.ballotName,
       user_id: user_id,
@@ -157,11 +158,13 @@ router.route('/ballots')
     .save()
     .then(function (ballot) {
       ballot_id =  ballot.get('id');
-      //res.json({error: false, data: {id: ballot.get('id')}});
+      console.log('ballot_id', ballot_id);
     })
     .then(function(){
+      console.log('inserting user vote with ballot_id of ', ballot_id, 'and user_id of ', user_id);
       UserVote.forge({
         user_id: user_id,
+        user_name: user_name,
         ballot_id: ballot_id
       })
       .save()
@@ -169,7 +172,7 @@ router.route('/ballots')
         res.json({error: false, data: {id: user_vote.get('id')}});
       })
     })
-  })// FIXME create vote skeleton
+  })
   .catch(function (err) {
     res.status(500).json({error: true, data: {message: err.message}});
   });
@@ -222,7 +225,7 @@ router.route('/ballots/:ballotCode')
 .get(function (req, res) {
   console.log('inside get req.params.ballotCode', req.params.ballotCode, "req.params ", req.params);
   Ballot.forge({ballot_code: req.params.ballotCode})
-  .fetch()
+  .fetch({withRelated: ['user_vote']})
   .then(function (ballot) {
     //console.log('inside get then ballot', ballot);
     if(!ballot) {
@@ -269,8 +272,8 @@ router.route('/ballots/:ballotCode')
       console.log()
       userVoteCount = result[0].userVotes;
       console.log('userVoteCount', userVoteCount);
-      username = 'Voter' + req.params.ballotCode + (parseInt(userVoteCount) + 1);
       if(!req.body.username) {
+        username = 'Voter' + req.params.ballotCode + (parseInt(userVoteCount) + 1);
       }
       else {
         username = req.body.username;
@@ -283,6 +286,7 @@ router.route('/ballots/:ballotCode')
       .then(function() {
         UserVote.forge({ //insert user_vote with ballot_id and user_id
           user_id: user_id,
+          user_name: username,
           ballot_id: ballot_id
         })
         .save()

@@ -8,33 +8,54 @@
  * Controller of the ballotTempApp
  */
 angular.module('angularBestPracticeApp')
-  .controller('AdminVotingPageCtrl',function($scope, $http, $rootScope){
+  .controller('AdminVotingPageCtrl',function($scope, $http, $rootScope, $timeout){
     console.log("This is the randomly generated code", $scope.randomCode);
-    $http.get("/api/ballots/" + $scope.randomCode)
-    .success(function(data){
-      $scope.ballotData = data;
-      console.log("this is $scope.ballotData", $scope.randomCode);
-      $scope.choices[0].choice = $scope.ballotData.data.ballot_option_one;
-      $scope.choices[1].choice = $scope.ballotData.data.ballot_option_two;
-      $scope.choices[2].choice = $scope.ballotData.data.ballot_option_three;
-      $scope.choices[3].choice = $scope.ballotData.data.ballot_option_four;
-      $scope.choices[4].choice = $scope.ballotData.data.ballot_option_five;
-    });
+    $timeout(function(){
+      $http.get("/api/ballots/" + $scope.randomCode)
+      .success(function(data){
+        $scope.ballotData = data;
+        console.log("this is $scope.ballotData", $scope.randomCode);
+        $scope.choices[0].choice = $scope.ballotData.data.ballot_option_one;
+        $scope.choices[1].choice = $scope.ballotData.data.ballot_option_two;
+        $scope.choices[2].choice = $scope.ballotData.data.ballot_option_three;
+        $scope.choices[3].choice = $scope.ballotData.data.ballot_option_four;
+        $scope.choices[4].choice = $scope.ballotData.data.ballot_option_five;
+      });
+    }, 1000);
 
-    $scope.voters = [
+    $scope.vs = [
       {
-        voterId: 1,
-        voter: 'John',
+        voterId: 1
       },
       {
-        voterId: 2,
-        voter: 'Andy',
+        voterId: 2
       },
       {
-        voterId: 3,
-        voter: 'Jeff',
+        voterId: 3
+      },
+      {
+        voterId: 4
+      },
+      {
+        voterId: 5
       }
     ];
+    $scope.populateVoters = function(){
+      console.log('Inside populate voters function');
+      $http.get("/api/ballots/" + $scope.randomCode)
+      .then(function(result){
+        $scope.voterData = result.data;
+        console.log('bData1', $scope.voterData)
+        console.log('option1', $scope.voterData.data.ballot_option_one);
+        $scope.vs[0].voter = $scope.voterData.data.ballot_option_one;
+        console.log($scope.vs[0].voter);
+        $scope.vs[1].voter = $scope.voterData.data.ballot_option_two;
+        $scope.vs[2].voter = $scope.voterData.data.ballot_option_three;
+        $scope.vs[3].voter = $scope.voterData.data.ballot_option_four;
+        $scope.vs[4].voter = $scope.voterData.data.ballot_option_five;
+      })
+    };
+
 
     $scope.choices = [
       {

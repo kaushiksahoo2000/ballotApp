@@ -8,14 +8,6 @@
 <ul class="nav nav-pills nav-stacked">
   <li role="presentation" class="active">Where are we having lunch?</li>
 </ul>
-<h2>Voters</h2>
-<div ng-controller="UserVotingPageCtrl">
-    <ul>
-        <li ng-repeat="voter in voters"  ng-click="select($index)" ng-class="{active: $index===selectedIndex}">
-            {{voter.voter}}
-        </li>
-    </ul>
-</div>
 <h2>Choices</h2>
 <div ng-controller="UserVotingPageCtrl">
     <ul>

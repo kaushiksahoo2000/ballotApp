@@ -306,6 +306,7 @@ router.route('/ballots/:ballotCode/:username')
 .post(function(req, res) {
   var user_id, ballot_id, userVoteCount, username;
   //fetch ballot info by code
+  console.log('+++req.params = > ', req.params);
   Ballot.forge({ballot_code: req.params.ballotCode})
   .fetch()
   .then(function(ballot) {
@@ -326,7 +327,7 @@ router.route('/ballots/:ballotCode/:username')
       console.log()
       userVoteCount = result[0].userVotes;
       console.log('userVoteCount', userVoteCount);
-      if(!req.body.username) {
+      if(!req.params.username) {
         username = 'Voter' + req.params.ballotCode + (parseInt(userVoteCount) + 1);
       }
       else {

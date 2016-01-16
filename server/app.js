@@ -469,8 +469,11 @@ app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
 });
+// set the port of our application
+// process.env.PORT lets the port be set by Heroku
+var port = process.env.PORT || 8000;
 
 //start simple server listening
-app.listen(8000, function() {
+app.listen(port, function() {
   console.log("✔ Express server listening on port %d", 8000, app.get('env'));
 });

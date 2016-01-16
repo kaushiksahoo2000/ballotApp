@@ -10,15 +10,21 @@
 angular.module('angularBestPracticeApp')
   .controller('BallotInitiationCtrl', ['$scope', '$rootScope', 'UserFactory', '$http', function($scope, $rootScope, UserFactory, $http){
     $rootScope.randomCode = (new Date()).getTime().toString().slice(8);
+    $rootScope.userNameCode = (new Date()).getTime().toString().slice(8);
+    if(!$scope.userGivenUserName){
+      $scope.userNameFinal = "Voter" + $rootScope.userNameCode;
+    }else{
+      $scope.userNameFinal = $scope.userGivenUserName;
+    }
     $scope.enterBallotCode = function(){
       $rootScope.userGivenCode = $scope.userGivenCode;
       // console.log("this is $rootScope.userGivenCode", $rootScope.userGivenCode);
       // console.log("this is the userGivenUserName", $scope.userGivenUserName);
       $http({
           method  : 'POST',
-          url     : '/api/ballots/'+$scope.userGivenCode+'/'+$scope.userGivenUserName,
+          url     : '/api/ballots/'+$scope.userGivenCode+'/'+$scope.userNameFinal,
           data    : {
-            "name": $scope.userGivenUserName,
+            "name": $scope.userNameFinal,
             "ballotCode": $scope.userGivenCode
           }
         }).then(function(success){

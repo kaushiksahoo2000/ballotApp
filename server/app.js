@@ -457,6 +457,11 @@ router.route('/endvote')
   });
 });
 
+router.route('/')
+.get(function (res, req) {
+  res.redirect('/app')
+});
+
 
 //serve static assets
 app.use(express.static(__dirname + '/..' + '/client'));

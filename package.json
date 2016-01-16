@@ -4,7 +4,9 @@
   "description": "A fast anonymous voting system",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/app.js",
+    "postinstall": "./node_modules/bower/bin/bower install"
   },
   "repository": {
     "type": "git",
@@ -28,6 +30,7 @@
   "dependencies": {
     "body-parser": "^1.14.2",
     "bookshelf": "^0.9.1",
+    "bower": "^1.7.2",
     "express": "^4.13.3",
     "knex": "^0.9.0",
     "lodash": "^4.0.0",

@@ -4,30 +4,44 @@
     <div class="panel panel-info">
 
       <div class="panel-heading">
-        <div class="panel-title"><i class="glyphicon glyphicon-thumbs-up"> Ballot.io</i></div>
+        <div class="panel-title"><i class="glyphicon glyphicon-thumbs-up"> Ballotize</i></div>
       </div>
 
       <div style="padding-top:10px;" class="panel-body" >
         <div>
           <h2>Winner</h2>
           <ul class="list-group">
-            <li class="list-group-item">Chipotle</li>
+            <li class="list-group-item">
+              <span class="badge">{{maxVoteResultCount}}</span>
+              {{theFinalWinner}}
+            </li>
           </ul>
         </div>
         <div>
           <h2 >Vote Results</h2>
           <ul class="list-group">
             <li class="list-group-item">
-              <span class="badge">2</span>
-              Chipotle
+              <span class="badge">{{results[0].filterId}}</span>
+              {{results[0].ballotOption}}
             </li>
             <li class="list-group-item">
-              <span class="badge">0</span>
-              Chophouse
+              <span class="badge">{{results[1].filterId}}</span>
+              {{results[1].ballotOption}}
             </li>
             <li class="list-group-item">
-              <span class="badge">1</span>
-              Bennies
+              <span class="badge">{{results[2].filterId}}</span>
+              {{results[2].ballotOption}}
+
+            </li>
+            <li class="list-group-item">
+              <span class="badge">{{results[3].filterId}}</span>
+              {{results[3].ballotOption}}
+
+            </li>
+            <li class="list-group-item">
+              <span class="badge">{{results[4].filterId}}</span>
+              {{results[4].ballotOption}}
+
             </li>
           </ul>
         </div>

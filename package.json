@@ -1,15 +1,26 @@
 {
-  "name": "ballotappserver",
-  "version": "0.0.1",
-  "description": "api and client server for ballot app",
+  "name": "ballotize",
+  "version": "0.9.0",
+  "description": "A fast anonymous voting system",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/app.js",
+    "postinstall": "./node_modules/bower/bin/bower install"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ballotApp/ballotApp.git"
   },
+  "keywords": [
+    "voting",
+    "instant",
+    "responsive",
+    "javascript",
+    "angular",
+    "bookshelf",
+    "mysql"
+  ],
   "author": "Hackson5",
   "license": "MIT",
   "bugs": {
@@ -19,6 +30,7 @@
   "dependencies": {
     "body-parser": "^1.14.2",
     "bookshelf": "^0.9.1",
+    "bower": "^1.7.2",
     "express": "^4.13.3",
     "knex": "^0.9.0",
     "lodash": "^4.0.0",

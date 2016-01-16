@@ -10,21 +10,30 @@
 angular.module('angularBestPracticeApp')
   .controller('BallotInitiationCtrl', ['$scope', '$rootScope', 'UserFactory', '$http', function($scope, $rootScope, UserFactory, $http){
     $rootScope.randomCode = (new Date()).getTime().toString().slice(8);
+    $rootScope.userNameCode = (new Date()).getTime().toString().slice(8);
+
     $scope.enterBallotCode = function(){
+      console.log("userGivenUserName on line 16 in ballot initiation.js", $scope.userGivenUserName);
+      if(!$scope.userGivenUserName){
+        $scope.userNameFinal = "Voter" + $rootScope.userNameCode;
+      }else{
+        $scope.userNameFinal = $scope.userGivenUserName;
+      }
       $rootScope.userGivenCode = $scope.userGivenCode;
       // console.log("this is $rootScope.userGivenCode", $rootScope.userGivenCode);
       // console.log("this is the userGivenUserName", $scope.userGivenUserName);
       $http({
           method  : 'POST',
-          url     : '/api/ballots/'+$scope.userGivenCode+'/'+$scope.userGivenUserName,
+          url     : '/api/ballots/'+$scope.userGivenCode+'/'+$scope.userNameFinal,
           data    : {
-            "name": $scope.userGivenUserName,
+            "name": $scope.userNameFinal,
             "ballotCode": $scope.userGivenCode
           }
         }).then(function(success){
+          console.log("THIS IS THE SUCCESS OBJECT TO BE ACCESSED!", success);
           console.log('this is the success ID on entering a roomcode', success.data.data.id);
-          $rootScope.ballotId = success.data.data.id;
-          console.log('this is $rootScope.ballotId!!!', $rootScope.ballotId);
+          $rootScope.voteId = success.data.data.id;
+          console.log('this is $rootScope.voteId!!!', $rootScope.voteId);
         }, function(err){
           console.log('THIS IS AN ERROR!');
         });

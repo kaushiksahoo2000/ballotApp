@@ -361,24 +361,98 @@ router.route('/ballots/:ballotCode/:username')
 });
 
 router.route('/voter/vote')
-//POST           // Ballots/vote/          //fetch ballot info based on ballotCode and insert user
+//POST           // voter/vote/          //
 .post(function (req, res) {
   console.log('+++ inside app.js /ballots/vote route');
-  UserVote.forge({id: req.body.ballotId})
+  var voteStatus, ballotInfo;
+  //get ballot status
+  console.log('+++ req.body.ballotId', req.body.ballotId);
+  Ballot.forge({id: req.body.ballotId})
+  .fetch()
+  .then(function (ballot) {
+    //console.log('+++ line 373 ballot value inside then', ballot);
+    if (!ballot) {
+      res.status(404).json({error: true, data: {}});
+    }
+    else {
+      ballotInfo = ballot.toJSON();
+      console.log('+++ line 379 ballotInfo =>', ballotInfo);
+      voteStatus = ballotInfo.status;
+      console.log('voteStatus => ', voteStatus);
+      //res.json({error: false, data: user.toJSON()});
+    }
+  })
+  .catch(function (err) {
+    res.status(500).json({error: true, data: {message: err.message}});
+  })
+  .then(function(){
+    console.log('+++ line 385 server/app.js voteStatus=> ', voteStatus);
+    if(voteStatus === 'closed') {
+      console.log('+++ line 391 inside closed if, ', voteStatus)
+      res.json({error: false, data: {message: 'User vote closed'}});
+    }
+    else {
+      //else do the UserVote.forge
+      console.log('+++ line 396 inside else for user voteStatus= > ', voteStatus)
+      UserVote.forge({id: req.body.voteId})
+      .fetch({require: true})
+      .then(function (userVote) {
+        userVote.save({
+          up_down: 1,
+          ballot_option_name: req.body.userVoterChoice
+        }, {patch: true})
+        .then(function () {
+          res.json({error: false, data: {message: 'User vote recorded'}});
+        })
+        .catch(function (err) {
+          res.status(500).json({error: true, data: {message: err.message}});
+        });
+      })
+      .catch(function (err) {
+        res.status(500).json({error: true, data: {message: err.message}});
+      });
+    }
+  });
+});
+
+//end vote route
+router.route('/endvote')
+.post(function (req, res) {
+  console.log("+++ line 421");
+  console.log('req.body', req.body);
+  UserVote.forge({id: req.body.voteId})
   .fetch({require: true})
   .then(function (userVote) {
+    console.log('+++line 424 inside then function of post for end vote');
     userVote.save({
       up_down: 1,
       ballot_option_name: req.body.userVoterChoice
     }, {patch: true})
     .then(function () {
-      res.json({error: false, data: {message: 'User vote recorded'}});
+      //res.json({error: false, data: {message: 'User vote recorded'}});
+      Ballot.forge({id:req.body.ballotId})
+      .fetch({require: true})
+      .then(function (ballot) {
+        ballot.save({
+          status: 'closed'
+        })
+        .then(function () {
+          res.json({error: false, data: {message: 'ballot closed'}});
+        })
+        .catch(function() {
+          res.status(500).json({error: true, data: {message: err.message}});
+        });
+      })
+      .catch(function (err) {
+        res.status(500).json({error: true, data: {message: err.message}});
+      })
     })
     .catch(function (err) {
       res.status(500).json({error: true, data: {message: err.message}});
     });
   })
   .catch(function (err) {
+    console.log('++++ line 453 inside final catch');
     res.status(500).json({error: true, data: {message: err.message}});
   });
 });

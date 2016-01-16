@@ -15,14 +15,15 @@ angular.module('angularBestPracticeApp')
       $scope.ballotData = data;
       $scope.userTopic = $scope.ballotData.data.ballot_name;
       console.log("this is $scope.ballotData", $scope.ballotData);
-      console.log("this is $rootScope.ballotId in uservotingpage", $rootScope.ballotId);
+      console.log("this is $rootScope.voteId; this is voterId", $rootScope.voteId);
+      console.log("this is $scope.ballotData.id; this is id", $scope.ballotData.data.id);
       $scope.choices[0].choice = $scope.ballotData.data.ballot_option_one;
       $scope.choices[1].choice = $scope.ballotData.data.ballot_option_two;
       $scope.choices[2].choice = $scope.ballotData.data.ballot_option_three;
       $scope.choices[3].choice = $scope.ballotData.data.ballot_option_four;
       $scope.choices[4].choice = $scope.ballotData.data.ballot_option_five;
     });
-    }, 1000);
+  }, 1000);
 
     $scope.choices = [
       {
@@ -59,8 +60,9 @@ angular.module('angularBestPracticeApp')
           method  : 'POST',
           url     : '/api/voter/vote',
           data    : {
-            "ballotId": $rootScope.ballotId,
-            "userVoteChoice": $scope.userVoterChoice
+            "voteId": $rootScope.voteId,
+            "userVoterChoice": $scope.userVoterChoice,
+            "ballotId": $scope.ballotData.data.id
           }
         }).then(function(success){
           console.log(success);

@@ -13,10 +13,12 @@ angular.module('angularBestPracticeApp')
     $http.get("/api/ballots/" + $scope.userGivenCode)
     .success(function(data){
       $scope.ballotData = data;
+      $rootScope.userGivenGivenCode = $scope.userGivenCode;
+      console.log("this is userGivenGivenCode", $rootScope.userGivenGivenCode);
       $scope.userTopic = $scope.ballotData.data.ballot_name;
-      console.log("this is $scope.ballotData", $scope.ballotData);
-      console.log("this is $rootScope.voteId; this is voterId", $rootScope.voteId);
-      console.log("this is $scope.ballotData.id; this is id", $scope.ballotData.data.id);
+      // console.log("this is $scope.ballotData", $scope.ballotData);
+      // console.log("this is $rootScope.voteId; this is voterId", $rootScope.voteId);
+      // console.log("this is $scope.ballotData.id; this is id", $scope.ballotData.data.id);
       $scope.choices[0].choice = $scope.ballotData.data.ballot_option_one;
       $scope.choices[1].choice = $scope.ballotData.data.ballot_option_two;
       $scope.choices[2].choice = $scope.ballotData.data.ballot_option_three;

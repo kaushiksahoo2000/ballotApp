@@ -23,11 +23,25 @@ angular.module('angularBestPracticeApp')
       $scope.results[3].ballotOption = $scope.ballotData.data.data.ballot_option_four;
       $scope.results[4].ballotOption = $scope.ballotData.data.data.ballot_option_five;
       console.log("THIS IS THE SCOPE.RESULT ARRAY", $scope.results);
-      // angular.forEach($scope.votingResultsArray,function(value,index){
-      //   console.log("this is the ballot_option value in forEach", value.ballot_option_name);
-      //   $scope.results[index].result = value.ballot_option_name;
-      //   console.log("this is $scope.results[index].result", $scope.results[index].result);
-      // });
+      angular.forEach($scope.results, function(value,index){
+        angular.forEach($scope.votingResultsArray, function(individualValue,position){
+          if(individualValue.ballot_option_name === value.ballotOption){
+            value.filterId++;
+          }
+        })
+      });
+      console.log("line 33 this is the winning vote count",Math.max.apply(Math,$scope.results.map(function(o){return o.filterId;})));
+      $scope.maxVoteResultCount = Math.max.apply(Math,$scope.results.map(function(o){return o.filterId;}));
+      console.log("line 35 this is the winning vote count in variable form", $scope.maxVoteResultCount);
+
+
+      angular.forEach($scope.results, function(value, index){
+        if(value.filterId === $scope.maxVoteResultCount){
+          console.log("this is the winner", value.ballotOption);
+          $scope.theFinalWinner = value.ballotOption;
+        }
+        console.log("this is the winner but in variable form w/ $scope.theFinalWinner", $scope.theFinalWinner);
+      });
     });
 
 
@@ -53,6 +67,5 @@ angular.module('angularBestPracticeApp')
         filterId: 0,
       }
     ];
-
+  }, 3000);
   });
-}, 2000);

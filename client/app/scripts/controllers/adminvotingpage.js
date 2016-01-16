@@ -13,6 +13,11 @@ angular.module('angularBestPracticeApp')
       $http.get("/api/ballots/" + $scope.randomCode)
       .success(function(data){
         $scope.ballotData = data;
+        $scope.adminVoteId = $scope.ballotData.data.user_vote[0].id;
+        console.log("this is $scope.ballotData", $scope.ballotData);
+        console.log("this is $rootScope.voteId; this is voterId", $rootScope.voteId);
+        console.log("this is $scope.ballotData.id; this is id", $scope.ballotData.data.id);
+        console.log("THIS IS THE ADMINS vote ID", $scope.ballotData.data.user_vote[0].id);
         $scope.votingTopic = $scope.ballotData.data.ballot_name;
         $scope.choices[0].choice = $scope.ballotData.data.ballot_option_one;
         $scope.choices[1].choice = $scope.ballotData.data.ballot_option_two;
@@ -78,13 +83,30 @@ angular.module('angularBestPracticeApp')
       }
     ];
     $scope.selectedIndex = 0;
+    $scope.adminVoterChoice = '';
 
     $scope.select = function(i){
       $scope.selectedIndex = i;
       console.log(this.choice.choice);
+      $scope.adminVoterChoice = this.choice.choice;
+      console.log("this is the updating adminVoterChoice", $scope.adminVoterChoice);
     };
 
     $scope.endVoting = function(){
-      console.log("inside endVoting function");
+      console.log("inside endVoting function in adminvotingpage");
+      $http({
+          method  : 'POST',
+          url     : '/api/endvote',
+          data    : {
+            "voteId": $scope.adminVoteId,
+            "userVoterChoice": $scope.adminVoterChoice,
+            "ballotId": $scope.ballotData.data.id
+          }
+        }).then(function(success){
+          console.log(success);
+          //take next step from admin page
+        }, function(err){
+          console.log('THIS IS AN ERROR!');
+        });
     };
   });

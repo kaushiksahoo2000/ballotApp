@@ -22,9 +22,10 @@ angular.module('angularBestPracticeApp')
             "ballotCode": $scope.userGivenCode
           }
         }).then(function(success){
+          console.log("THIS IS THE SUCCESS OBJECT TO BE ACCESSED!", success);
           console.log('this is the success ID on entering a roomcode', success.data.data.id);
-          $rootScope.ballotId = success.data.data.id;
-          console.log('this is $rootScope.ballotId!!!', $rootScope.ballotId);
+          $rootScope.voteId = success.data.data.id;
+          console.log('this is $rootScope.voteId!!!', $rootScope.voteId);
         }, function(err){
           console.log('THIS IS AN ERROR!');
         });

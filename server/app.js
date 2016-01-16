@@ -415,6 +415,48 @@ router.route('/voter/vote')
   });
 });
 
+//end vote route
+router.route('/endvote')
+.post(function (req, res) {
+  console.log("+++ line 421");
+  console.log('req.body', req.body);
+  UserVote.forge({id: req.body.voteId})
+  .fetch({require: true})
+  .then(function (userVote) {
+    console.log('+++line 424 inside then function of post for end vote');
+    userVote.save({
+      up_down: 1,
+      ballot_option_name: req.body.userVoterChoice
+    }, {patch: true})
+    .then(function () {
+      //res.json({error: false, data: {message: 'User vote recorded'}});
+      Ballot.forge({id:req.body.ballotId})
+      .fetch({require: true})
+      .then(function (ballot) {
+        ballot.save({
+          status: 'closed'
+        })
+        .then(function () {
+          res.json({error: false, data: {message: 'ballot closed'}});
+        })
+        .catch(function() {
+          res.status(500).json({error: true, data: {message: err.message}});
+        });
+      })
+      .catch(function (err) {
+        res.status(500).json({error: true, data: {message: err.message}});
+      })
+    })
+    .catch(function (err) {
+      res.status(500).json({error: true, data: {message: err.message}});
+    });
+  })
+  .catch(function (err) {
+    console.log('++++ line 453 inside final catch');
+    res.status(500).json({error: true, data: {message: err.message}});
+  });
+});
+
 
 //serve static assets
 app.use(express.static(__dirname + '/..' + '/client'));

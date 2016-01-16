@@ -11,12 +11,14 @@ angular.module('angularBestPracticeApp')
   .controller('BallotInitiationCtrl', ['$scope', '$rootScope', 'UserFactory', '$http', function($scope, $rootScope, UserFactory, $http){
     $rootScope.randomCode = (new Date()).getTime().toString().slice(8);
     $rootScope.userNameCode = (new Date()).getTime().toString().slice(8);
-    if(!$scope.userGivenUserName){
-      $scope.userNameFinal = "Voter" + $rootScope.userNameCode;
-    }else{
-      $scope.userNameFinal = $scope.userGivenUserName;
-    }
+
     $scope.enterBallotCode = function(){
+      console.log("userGivenUserName on line 16 in ballot initiation.js", $scope.userGivenUserName);
+      if(!$scope.userGivenUserName){
+        $scope.userNameFinal = "Voter" + $rootScope.userNameCode;
+      }else{
+        $scope.userNameFinal = $scope.userGivenUserName;
+      }
       $rootScope.userGivenCode = $scope.userGivenCode;
       // console.log("this is $rootScope.userGivenCode", $rootScope.userGivenCode);
       // console.log("this is the userGivenUserName", $scope.userGivenUserName);

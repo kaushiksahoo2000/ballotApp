@@ -43,8 +43,81 @@ angular.module('angularBestPracticeApp')
         voterId: 4
       },
       {
-        voterId: 5
+        voterId: 6
+      },
+      {
+        voterId: 7
+      },
+      {
+        voterId: 8
+      },
+      {
+        voterId: 9
+      },
+      {
+        voterId: 10
+      },
+      {
+        voterId: 11
+      },
+      {
+        voterId: 12
+      },
+      {
+        voterId: 13
+      },
+      {
+        voterId: 14
+      },
+      {
+        voterId: 15
+      },
+      {
+        voterId: 16
+      },
+      {
+        voterId: 17
+      },
+      {
+        voterId: 18
+      },
+      {
+        voterId: 19
+      },
+      {
+        voterId: 20
+      },
+      {
+        voterId: 21
+      },
+      {
+        voterId: 22
+      },
+      {
+        voterId: 23
+      },
+      {
+        voterId: 24
+      },
+      {
+        voterId: 25
+      },
+      {
+        voterId: 26
+      },
+      {
+        voterId: 27
+      },
+      {
+        voterId: 28
+      },
+      {
+        voterId: 29
+      },
+      {
+        voterId: 30
       }
+
     ];
     $scope.populateVoters = function(){
       console.log('Inside populate voters function');

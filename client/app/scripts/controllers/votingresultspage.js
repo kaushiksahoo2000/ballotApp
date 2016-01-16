@@ -8,8 +8,9 @@
  * Controller of the ballotTempApp
  */
 angular.module('angularBestPracticeApp')
-  .controller('VotingResultsPageCtrl',function($scope, $http, $rootScope, $timeout){
+  .controller('VotingResultsPageCtrl',function($scope, $http, $rootScope, $timeout, $interval){
     $timeout(function(){
+      $interval(function(){
     $scope.finalCode = $rootScope.userGivenGivenCode || $rootScope.adminGivenGivenCode;
     $http.get("/api/ballots/" + $scope.finalCode)
     .then(function(data){
@@ -67,5 +68,6 @@ angular.module('angularBestPracticeApp')
         filterId: 0,
       }
     ];
+  }, 6000);
   }, 3000);
   });

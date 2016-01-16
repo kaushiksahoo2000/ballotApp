@@ -8,7 +8,7 @@
  * Controller of the ballotTempApp
  */
 angular.module('angularBestPracticeApp')
-  .controller('AdminVotingPageCtrl',function($scope, $http, $rootScope, $timeout){
+  .controller('AdminVotingPageCtrl',function($scope, $http, $rootScope, $timeout, $interval){
     $timeout(function(){
       $http.get("/api/ballots/" + $scope.randomCode)
       .success(function(data){
@@ -119,7 +119,7 @@ angular.module('angularBestPracticeApp')
       }
 
     ];
-    $scope.populateVoters = function(){
+    $interval(function(){
       console.log('Inside populate voters function');
       $http.get("/api/ballots/" + $scope.randomCode)
       .then(function(result){
@@ -137,7 +137,7 @@ angular.module('angularBestPracticeApp')
         // $scope.vs[3].voter = $scope.voterData.data.ballot_option_four;
         // $scope.vs[4].voter = $scope.voterData.data.ballot_option_five;
       });
-    };
+    }, 1000);
 
 
     $scope.choices = [

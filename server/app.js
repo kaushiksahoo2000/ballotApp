@@ -118,6 +118,8 @@ let UserVotes = Bookshelf.Collection.extend({
 //     TODO PUT       /ballots/:id                          //update ballot
 //     TODO DELETE    /ballots/:id                          //delete ballot
 // */
+
+
 router.route('/ballots')
 //GET       /ballots                              //fetch all ballots
 .get(function (req, res) {
@@ -457,6 +459,13 @@ router.route('/endvote')
   });
 });
 
+app.get('/', function(req, res){
+  console.log('++++ value of res on line 463 => ', res);
+  //console.log('inside app.get you fool');
+  //res.send('GET REQUEST TO HOME PAGE');
+  res.redirect('/app');
+
+})
 
 //serve static assets
 app.use(express.static(__dirname + '/..' + '/client'));
@@ -469,8 +478,11 @@ app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
 });
+// set the port of our application
+// process.env.PORT lets the port be set by Heroku
+var port = process.env.PORT || 8000;
 
 //start simple server listening
-app.listen(8000, function() {
+app.listen(port, function() {
   console.log("✔ Express server listening on port %d", 8000, app.get('env'));
 });

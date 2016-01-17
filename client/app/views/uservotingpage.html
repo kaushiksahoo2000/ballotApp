@@ -1,53 +1,45 @@
 <div class="container">
   <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
     <div class="panel panel-info">
-​
       <div class="panel-heading">
         <div class="panel-title"><i class="glyphicon glyphicon-thumbs-up"> Ballotize</i></div>
       </div>
-​
       <div style="padding-top:15px" class="panel-body">
-
         <h5 style="font-family:Helvetica; font-weight:600;">Code</h5>
-          <!-- <div class="form-group"> -->
-          <!-- <div class="col-sm-4"> -->
-          <div style-"margin-bottom: 20px;">
-            <input type="text" class="form-control input-xs" ng-model="userGivenCode" placeholder="" readonly>
-          </div>
-  ​
-          <div style="margin-top: 20px"></div>
-
-
-          <h5 style="font-family:Helvetica; font-weight:600;">Voting Topic</h5>
-            <div>
-              <input type="text" class="form-control input-xs" ng-model="userTopic" placeholder="" readonly>
-            </div>
-    ​
-            <div style="margin-top: 20px"></div>
-
-
-            <h4 style="font-family:Helvetica; font-weight:600;" class="text-center">Enter Choices</h4>
-              <div style="margin-bottom: 20px; padding-left: 16px;">
-                  <div class="form-group text-center" ng-repeat="choice in choices" style="padding-right: 12px;">
-                    <button id="{{choice.choice}}" ng-click="select(choice.id);" class="btn btn-default btn-block" style="">
-                      {{choice.choice}}
-                    </button>
-                  </div>
-              </div>
-
-
-      <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-          <a href="#/votingresultspage"><button type="submit" ng-click="endVoting()" class="btn btn-success">Done Voting</button></a>
+        <div style-"margin-bottom: 20px;">
+            <input type="text" class="form-control input-xs" ng-model="userGivenCode" name="" readonly>
         </div>
-      </div>
-
+        <div style="margin-top: 1px"></div>
+        <h5 style="font-family:Helvetica; font-weight:600;">Voting Topic</h5>
+            <div style-"margin-bottom: 20px;">
+              <input type="text" class="form-control input-xs" ng-model="userTopic" placeholder="" readonly>
+              <!-- <input role="presentation" class="active">{{votingTopic}}</li> -->
+            </div>
+            <div style="margin-top: 20px"></div>
+​
+              <h4 style="font-family:Helvetica; font-weight:600;" class="text-center">Enter Choices</h4>
+                    <div style="margin-bottom: 20px; padding-left: 16px;">
+                        <div class="form-group text-center" ng-repeat="choice in choices" style="padding-right: 12px;">
+                          <button id="{{choice.choice}}" ng-click="select(choice.id)" class="btn btn-default btn-md btn-block testme" style="border-radius: 5px;">
+                            {{choice.choice}}
+                          </button>
+                        </div>
+                    </div>
+​
+                    <div class="text-center">
+                <!--             <div class="col-sm-offset-2 col-sm-10"> -->
+                              <a href="#/votingresultspage"><button type="submit" ng-click="endVoting()" class="btn btn-success" style="margin: 15px">Done Voting</button></a>
+                ​
+                              <!-- <button type="submit" ng-click="populateVoters()" class="btn btn-success">Populate Voters</button> -->
+                ​
+                    </div>
+​
 </div>
-</div>
-</div>
-</div>
-
-
+​
+  </div>
+  </div>
+​
+ </div>
 
 
 

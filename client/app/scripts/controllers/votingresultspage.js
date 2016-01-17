@@ -68,6 +68,6 @@ angular.module('angularBestPracticeApp')
         filterId: 0,
       }
     ];
-  }, 6000);
+  }, 4000);
   }, 3000);
   });

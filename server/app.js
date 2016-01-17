@@ -118,6 +118,8 @@ let UserVotes = Bookshelf.Collection.extend({
 //     TODO PUT       /ballots/:id                          //update ballot
 //     TODO DELETE    /ballots/:id                          //delete ballot
 // */
+
+
 router.route('/ballots')
 //GET       /ballots                              //fetch all ballots
 .get(function (req, res) {
@@ -457,11 +459,13 @@ router.route('/endvote')
   });
 });
 
-router.route('/')
-.get(function (res, req) {
-  res.redirect('/app')
-});
+app.get('/', function(req, res){
+  console.log('++++ value of res on line 463 => ', res);
+  //console.log('inside app.get you fool');
+  //res.send('GET REQUEST TO HOME PAGE');
+  res.redirect('/app');
 
+})
 
 //serve static assets
 app.use(express.static(__dirname + '/..' + '/client'));

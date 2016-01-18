@@ -18,7 +18,7 @@
           </li>
         </ul>
       </div>
-      
+
       <div sytle="text-align:center">
         <h2 style="text-align:center; font-family:Tw Cen MT">Vote Results</h2>
         <ul class="list-group">
@@ -35,12 +35,12 @@
             {{results[2].ballotOption}}
 
           </li>
-          <li class="list-group-item" style="min-height:42px;">
+          <li class="list-group-item" style="min-height:42px;" ng-hide="results[3].ballotOption === 'NULL'">
             <span class="badge">{{results[3].filterId}}</span>
             {{results[3].ballotOption}}
 
           </li>
-          <li class="list-group-item" style="min-height:42px;">
+          <li class="list-group-item" style="min-height:42px;" ng-hide="results[4].ballotOption === 'NULL'">
             <span class="badge">{{results[4].filterId}}</span>
             {{results[4].ballotOption}}
           </li>

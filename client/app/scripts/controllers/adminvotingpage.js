@@ -1,13 +1,6 @@
 'use strict';
 
-/**
- * @ngdoc function
- * @name ballotTempApp.controller:AdminVotingPageCtrl
- * @description
- * # BallotCreationCtrl
- * Controller of the ballotTempApp
- */
-angular.module('angularBestPracticeApp')
+angular.module('BallotizeApp')
   .controller('AdminVotingPageCtrl',function($scope, $http, $rootScope, $timeout, $interval){
     $timeout(function(){
       $http.get("/api/ballots/" + $scope.randomCode)
@@ -15,11 +8,7 @@ angular.module('angularBestPracticeApp')
         $scope.ballotData = data;
         $scope.adminVoteId = $scope.ballotData.data.user_vote[0].id;
         $rootScope.adminGivenGivenCode = $scope.randomCode;
-        console.log("this is userGivenGivenCode", $rootScope.adminGivenGivenCode);
-        // console.log("this is $scope.ballotData", $scope.ballotData);
-        // console.log("this is $rootScope.voteId; this is voterId", $rootScope.voteId);
-        // console.log("this is $scope.ballotData.id; this is id", $scope.ballotData.data.id);
-        // console.log("THIS IS THE ADMINS vote ID", $scope.ballotData.data.user_vote[0].id);
+
         $scope.votingTopic = $scope.ballotData.data.ballot_name;
         $scope.choices[0].choice = $scope.ballotData.data.ballot_option_one;
         $scope.choices[1].choice = $scope.ballotData.data.ballot_option_two;
@@ -117,28 +106,18 @@ angular.module('angularBestPracticeApp')
       {
         voterId: 30
       }
-
     ];
-    $interval(function(){
-      console.log('Inside populate voters function');
+    $interval(function() {
       $http.get("/api/ballots/" + $scope.randomCode)
       .then(function(result){
         $scope.voterData = result.data;
-        console.log('uservote data user_name', $scope.voterData.data.user_vote[0].user_name);
         $scope.ballotVoters = $scope.voterData.data.user_vote;
-        console.log("this is the voters array", $scope.ballotVoters);
-        angular.forEach($scope.ballotVoters,function(value,index){
-          console.log("this is the user_name value in forEach", value.user_name);
+
+        angular.forEach($scope.ballotVoters,function(value,index) {
           $scope.vs[index].voter = value.user_name;
         });
-        // $scope.vs[0].voter = $scope.voterData.data.ballot_option_one;
-        // $scope.vs[1].voter = $scope.voterData.data.ballot_option_two;
-        // $scope.vs[2].voter = $scope.voterData.data.ballot_option_three;
-        // $scope.vs[3].voter = $scope.voterData.data.ballot_option_four;
-        // $scope.vs[4].voter = $scope.voterData.data.ballot_option_five;
       });
     }, 1000);
-
 
     $scope.choices = [
       {
@@ -160,28 +139,23 @@ angular.module('angularBestPracticeApp')
     $scope.selectedIndex = 0;
     $scope.adminVoterChoice = '';
 
-    $scope.select = function(i){
+    $scope.select = function(i) {
       $scope.selectedIndex = i;
-      console.log(this.choice.choice);
       $scope.adminVoterChoice = this.choice.choice;
-      console.log("this is the updating adminVoterChoice", $scope.adminVoterChoice);
     };
 
-    $scope.endVoting = function(){
-      console.log("inside endVoting function in adminvotingpage");
+    $scope.endVoting = function() {
       $http({
-          method  : 'POST',
-          url     : '/api/endvote',
-          data    : {
-            "voteId": $scope.adminVoteId,
-            "userVoterChoice": $scope.adminVoterChoice,
-            "ballotId": $scope.ballotData.data.id
-          }
-        }).then(function(success){
-          console.log(success);
-          //take next step from admin page
-        }, function(err){
-          console.log('THIS IS AN ERROR!');
-        });
-    };
-  });
+        method  : 'POST',
+        url     : '/api/endvote',
+        data    : {
+          "voteId": $scope.adminVoteId,
+          "userVoterChoice": $scope.adminVoterChoice,
+          "ballotId": $scope.ballotData.data.id
+        }
+      }).then(function(success){
+        console.log(success);
+      }, function(err){
+    });
+  };
+});

@@ -3,7 +3,7 @@
 describe('Controller: MainCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('angularBestPracticeApp'));
+  beforeEach(module('BallotizeApp'));
 
   var MainCtrl,
     scope;

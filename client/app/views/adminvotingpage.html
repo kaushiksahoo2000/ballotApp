@@ -36,7 +36,7 @@
         <div style="margin-bottom: 10px; padding-left: 16px">
           <div class="form-group text-center" ng-repeat="choice in choices" style="font-family:Tw Cen MT;font-size: 18px; padding-right: 12px">
 
-            <button id="{{choice.choice}}" ng-click="select(choice.id)" class="btn btn-default btn-md btn-block testme" style="border-radius: 5px">{{choice.choice}}</button>
+            <button id="{{choice.choice}}" ng-hide="choice.choice === 'NULL'" ng-click="select(choice.id)" class="btn btn-default btn-md btn-block testme" style="border-radius: 5px">{{choice.choice}}</button>
           </div>
         </div>
         <div class="text-center" style="padding-right:12px">
@@ -44,6 +44,6 @@
         </div>
       </div>
     </div>
-    
+
   </div>
 </div>

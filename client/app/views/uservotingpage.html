@@ -8,7 +8,7 @@
         <p style ="font-family:Tw Cen MT; font-size: 18px; color: black" align="center">Instant voting on anything</p>
       </div>
     </div>
-    
+
     <div style="padding-top:1px" class="panel-body">
       <h4 style="font-family:Tw Cen MT; text-align:center;font-weight:600;">Code</h4>
 
@@ -27,10 +27,10 @@
 
       <div style="margin-bottom: 20px; padding-left: 16px;">
         <div class="form-group text-center" ng-repeat="choice in choices" style="padding-right: 12px;">
-          <button id="{{choice.choice}}" ng-click="select(choice.id)" class="btn btn-default btn-md btn-block testme" style="border-radius: 5px;">{{choice.choice}}</button>
+          <button id="{{choice.choice}}" ng-hide="choice.choice === 'NULL'" ng-click="select(choice.id)" class="btn btn-default btn-md btn-block testme" style="border-radius: 5px;">{{choice.choice}}</button>
         </div>
       </div>
-      
+
       <div class="text-center">
         <a href="#/votingresultspage"><button type="submit" ng-click="endVoting()" class="btn btn-success" style="margin: 15px; text-align:center;font-family:Tw Cen MT">Done Voting</button></a>          ​
       </div>

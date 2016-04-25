@@ -1,0 +1,52 @@
+
+<div class="container-fluid">
+  <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+
+    <div class="panel-heading">
+      <div class="container-fluid">
+        <img src="./images/ballotize.png" margin-: -4px class="center-block img-responsive" alt="image">
+        <h1 style="font-family:Brush Script MT; margin: 0; padding: 0; border: 0; color:blue;text-align:center; font-size: 50px;color:#003399; text-padding: 0">Ballotize</h1>
+        <p style ="font-family:Tw Cen MT; font-size: 18px; color: black" align="center">Instant voting on anything</p>
+      </div>
+    </div>
+    
+    <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+    <form id="loginform" class="form-horizontal" role="form">
+
+      <div style="margin-bottom: 25px" class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <input id="login-username" type="text" class="form-control" name="username" value="" placeholder="username (optional)" ng-value="userGivenUserName" ng-model="userGivenUserName">
+      </div>
+
+      <div style="margin-bottom: 25px" class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-ok"></i></span>
+        <input id="login-code" type="text" class="form-control" name="userGivenCode" placeholder="Enter Ballot Code" ng-value="userGivenCode" ng-model="userGivenCode">
+      </div>
+
+      <div class="span2 text-center">
+        <a href="#/uservotingpage">
+          <button type="submit" name="go" class="btn btn-md btn-success btn-block" ng-click="enterBallotCode()"> Ready to Vote</button>
+        </a
+      </div>
+
+      <hr style="border: 0; height: 1px;
+        background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+        background-image: -moz-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+        background-image: -ms-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+        background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0); ">
+
+      <br>
+        <div style="margin-bottom: 25px" class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+          <input id="login-username" type="text" class="form-control" ng-value="newInitiator" placeholder="username (optional)" ng-model="newInitiator">
+        </div>
+
+        <div class="span2 text-center">
+          <a href="#/ballotcreation" style="text-decoration: none">
+            <button type="submit" name="go" class="btn btn-lg btn-primary btn-block" style="padding: 30px 20px; font-size: 25px; border-radius: 8px; background:white; border: 2px solid #0099cc;color: #0099cc;" ng-click="saveUser(newInitiator)"> Create Ballot </button>
+          </a>
+        </div>
+      </br>
+    </form>
+  </div>
+</div>

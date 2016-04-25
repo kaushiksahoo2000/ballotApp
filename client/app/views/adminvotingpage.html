@@ -1,0 +1,49 @@
+<div class="container">
+  <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+
+    <div class="panel-heading">
+      <div class="container-fluid">
+        <img src="./images/ballotize.png" margin-: -4px class="center-block img-responsive" alt="image">
+        <h1 style="font-family:Brush Script MT; margin: 0; padding: 0; border: 0; color:blue;text-align:center; font-size: 50px;color:#003399; text-padding: 0">Ballotize</h1>
+        <p style ="font-family:Tw Cen MT; font-size: 18px; color: black" align="center">Instant voting on anything</p>
+      </div>
+    </div>
+
+    <div style="padding-top:1px" class="panel-body">
+      <h4 style="font-family:Tw Cen MT; font-weight:600" class="text-center">Code</h4>
+
+      <div style-"margin-bottom: 20px;">
+          <input type="text" class="form-control input-xs" ng-model="randomCode" name="" readonly>
+      </div>
+  ​
+      <div style="margin-top: 1px"></div>
+      <h4 style="font-family:Tw Cen MT; font-weight:600" class="text-center">Voting Topic</h4>
+
+        <div style-"margin-bottom: 20px">
+          <input type="text" class="form-control input-xs" ng-model="votingTopic" placeholder="" readonly>
+        </div>
+
+        <div style="margin-top: 20px">
+          <h4 style="font-family:Tw Cen MT; font-weight:600;" class="text-center">Current Voters</h4>
+
+          <div style="margin-bottom: 20px; padding-left: 16px">
+            <div class="form-group text-center" ng-repeat="v in vs" style="border-radius: 5px; font-family:Tw Cen MT;font-size: 18px; padding-right: 12px" readonly>{{v.voter}}</div>
+          </div>
+        </div>
+
+        <h4 style="font-family:Tw Cen MT; font-weight:600;" class="text-center">Select Choice</h4>
+
+        <div style="margin-bottom: 10px; padding-left: 16px">
+          <div class="form-group text-center" ng-repeat="choice in choices" style="font-family:Tw Cen MT;font-size: 18px; padding-right: 12px">
+
+            <button id="{{choice.choice}}" ng-hide="choice.choice === 'NULL'" ng-click="select(choice.id)" class="btn btn-default btn-md btn-block testme" style="border-radius: 5px">{{choice.choice}}</button>
+          </div>
+        </div>
+        <div class="text-center" style="padding-right:12px">
+          <a href="#/votingresultspage"><button type="submit" ng-click="endVoting()" class="btn btn-danger" style="margin: 15px; font-family:Tw Cen MT">End Voting</button></a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
